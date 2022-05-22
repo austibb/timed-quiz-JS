@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/style.css">
+    <title>Document</title>
+</head>
+<body> 
+    <!-- each direct child of the body is a div for a display page of the quiz game -->
+    <div id="header">
+        <p id="highscore">View high scores</p>
+        <p id="clock">Time: 0</p>
+    </div>
+
+    <div id="introPage">
+        <h1>Coding Quiz Challenge</h1>
+        <p>Try to answer the following code-related questions within the time limit.Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+        <p id="startButton" class="btn">Start Quiz</p>
+    </div>
+
+    <div id="quizPage">
+        <h1 id="questionEl"></h1>
+        <div id="options"></div>
+        <div id="details">
+            <hr>
+            <div id="isCorrect"></div>
+        </div>
+    </div>
+    <div id="storeScorePage">
+        <h1>All done!</h1>
+        <h2 id="scoreDisplay"></h2>
+        <form id="formEl" action="submit">
+            <label for="nameEntry">Enter Initials:</label>
+            <input type="text" id="nameEntry" name="nameEntry" placeholder="enter your name">
+            <button id="submit" class="btn" type="submit" value="Submit">Submit</button>
+        </form>
+    </div>
+
+    <div id="highScorePage">
+        <h1>High scores</h1>
+        <ul id="scoreList"></ul>
+        <button class="btn back">Go back</button>
+        <button class="btn clearHighScore">Clear high scores</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="./assets/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+body {
+    max-width: 1500px;
+    margin: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 30px;
+}
+
+body > * {
+    width: 70%;
+    margin: auto;
+}
+
+body > :not(#header) {
+    width: 50%;
+}
+
+#header {
+    display: flex;
+    justify-content: space-between;
+}
+
+#options {
+    display: flex;
+    flex-direction: column;
+}
+
+#quizPage, #highScorePage, #storeScorePage, #lastPage {
+    display: none;
+}
+
+#introPage {
+    text-align: center;
+}
+
+#highscore {
+    color: rgb(196, 61, 240);
+    font-size: 24px;
+}
+
+form, label, input{
+    font-size: 24px;
+    padding: 0 0;
+}
+
+#submit {
+    font-size: 20px;
+    padding: 5px 5px;
+}
+
+p {
+    font-size: 20px;
+}
+
+#details {
+    font-size: 30px;
+    color: rgb(177, 177, 177);
+    font-style: italic;
+}
+
+#highscore:hover {
+    cursor: pointer;
+}
+
+.btn {
+    border-radius: 10px;
+    border: thick solid transparent;
+    background-color: rgb(49, 11, 112);
+    color: white;
+    padding: 10px 10px;
+    display: inline-block;
+    margin: inherit;
+    font-size: 20px;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: rgb(196, 61, 240);
+    cursor: pointer;
+}
+
+.answerChoice {
+    margin: 6px;
+    text-align: left;
+    font-size: 20px;
+    min-width: 230px;
+    width: 240px;
+}
+
+li:nth-child(odd) {
+    background-color: lavender;
+}
+
+li {
+    text-decoration: none;
+    list-style-type: none;
+    padding: 8px 20px;
+    width: inherit;
+    font-size: 20px;
+}
+
+ul {
+    padding: 0 0;
+}
