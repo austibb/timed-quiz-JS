@@ -18,7 +18,7 @@ $(function() {
     var storedHighScores;
 
     // data variables
-    var timeScore = 0;                      // timer int
+    var timeScore = 60;                      // timer int
     var questions = [
         ['Commonly used data types do NOT include:', [['strings', false], ['booleans', false], ['alerts', true], ['numbers', false]]],
         ['The conditionin an if/else statement is enclosed with ______.', [['quotes', false], ['curly brackets', false], ['parentheses', true], ['square brackets', false]]],
@@ -37,12 +37,12 @@ $(function() {
 
     // event handler to display leaderboard when the "high scores" tag is clicked
     highScoreEl.on('click', function() {
+        clearInterval(startClock);
         showHighScores();
     });
 
     // event handler for when the user clicks on the "go back" button
     highScorePage.on('click', '.back', function(){
-        console.log('clicking');
         init(); //resets variables and webpage
     });
 
@@ -65,7 +65,10 @@ $(function() {
         } else {
             $(this).css('background-color', 'red')
             correctEl.text('Wrong!');
-            timeScore += 10;
+            timeScore -= 10;
+            if (timeScore < 0) {
+                timeScore = 0;
+            }
             clock.text('Time: ' + timeScore);
         }
 
@@ -92,11 +95,27 @@ $(function() {
         quizPage.show();              // reveals quiz page
         askQuestions();                 // begin the quiz
         details.hide();
+        clock.text('Time: ' + timeScore);
         startClock = setInterval(function() {
-            timeScore += 1;
-            clock.text('Time: ' + timeScore);
+            timeScore -= 1;
+            if (timeScore > 0) {
+                clock.text('Time: ' + timeScore);
+            } else {
+                timeScore = 0;
+                endGame();
+            }
         }
         , 1000); // starts timer
+    }
+
+    // helper function to terminate the game when the quiz is complete, time is run out, or if the user clicks into the leaderboard during a game.
+    function endGame() {
+        $('body').children().hide();
+        header.show();
+        storeScorePage.show();
+        clearInterval(startClock);              // stops timer
+        finalScore = timeScore;
+        $('#scoreDisplay').text('Your final score is ' + finalScore + '.');
     }
 
     // populates page with next question in the quiz as well as their answer choices
@@ -124,12 +143,7 @@ $(function() {
             if (questionNumber < questions.length) {    // continues to ask questions while there are questions remaining
                 askQuestions();
             } else {                                    // hide questions page, give score, show highscore
-                $('body').children().hide();
-                header.show();
-                storeScorePage.show();
-                clearInterval(startClock);              // stops timer
-                finalScore = timeScore;
-                $('#scoreDisplay').text('Your final score is ' + finalScore + '.');
+                endGame();
             }
             details.hide();
         }, 800);
@@ -142,17 +156,16 @@ $(function() {
         $('#scoreList').empty();
         // sorts stored object score submissions based on score value. helper function influenced by StackOverflow
         storedHighScores.sort(function(a, b) {
-            return parseFloat(a.score) - parseFloat(b.score);
+            return parseFloat(b.score) - parseFloat(a.score);
         });
         // displays leaderboard, at a max of the 8 highest scores
         if (storedHighScores.length > 0) {
             for (let i = 0; i < 8; i++) {
                 if (i < storedHighScores.length) {
                     let entry = storedHighScores[i];
-                    $('#scoreList')
-                        .append($('<li>')
-                            .text((i + 1) + '. ' + entry.name + ' - ' + entry.score)
-                        )
+                    $('#scoreList').append($('<li>')
+                        .text((i + 1) + '. ' + entry.name + ' - ' + entry.score)
+                    )
                 }
             }
         }
@@ -161,7 +174,7 @@ $(function() {
     // initializes/resets the page and variables
     function init() {
         questionNumber = 0;
-        timeScore = 0;
+        timeScore = 60;
 
         $('body').children().hide();
         header.show();
